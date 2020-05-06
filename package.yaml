@@ -1,0 +1,67 @@
+name:                webviewffi
+version:             0.1.0.0
+github:              "wikiemol/webviewffi"
+license:             BSD3
+author:              "William Oliver"
+maintainer:          "wikiemol@github.com"
+copyright:           "2020 Author name here"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+- webviewffi/webview_ffi.cpp
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/wikiemol/webviewffi#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+# build-type: Custom
+
+custom-setup:
+    dependencies: 
+    - base 
+    - Cabal
+    - process
+    - filepath
+    - directory
+    - split
+
+library:
+  source-dirs: 
+  - webviewffi
+  - src
+
+executables:
+  webviewffi-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -dynamic
+    frameworks:
+    - WebKit
+    dependencies:
+    - webviewffi
+    extra-libraries:
+    - webview
+
+tests:
+  webviewffi-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - webviewffi
